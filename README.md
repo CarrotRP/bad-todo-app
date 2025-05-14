@@ -1,1 +1,3 @@
-a todo app with no design, for learning so...
+# Le ToDo List
+
+a javascript to do list, simple stuff

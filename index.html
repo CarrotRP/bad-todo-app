@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Le ToDo List</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>to do list idk</h1>
-    <div class="box">
-        <ul class="todoList">
-            <li>eat shit <button class="delbtn">del</button></li>
-        </ul>
-    </div>
-    <form>
-        <input type="text" id="chores">
-    </form>
-    <button id="btn">submit</button>
+    <main>
+        <h1 style="font-size: 60px;text-decoration: underline;">Le ToDo List</h1>
+        <div class="input">
+            <input type="text" class="chore"><!--  do not remove
+            --><button class="add">add</button>
+        </div>
+        <section>
+            <ul class="list">
+                <!-- item will be display here -->
+            </ul>
+        </section>
+    </main>
 
     <script src="index.js"></script>
 </body>
+
 </html>

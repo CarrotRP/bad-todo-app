@@ -1,3 +1,99 @@
-.delbtn{
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #181A1B;
+    color: white;
+    font-family: 'Roboto';
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+main{
+    display: grid;
+    grid-template-rows: 250px 100px 250px;
+    grid-auto-rows: 250px; /* if new row were to be added, set it to this size*/
+}
+h1{
+    align-self: center;
+    justify-self: center;
+}
+
+/* input & submit btn style */
+.input{
+    justify-self: center;
+}
+.chore, .add{
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+}
+.chore{
+    width: 20em;
+    outline: none;
+}
+/* setting cursor: ponter for all buttons */
+button:hover{
+    cursor: pointer;
+}
+.add{
+    width: 5em;
+    background-color: darkorchid;
+    color: white;
+    outline: none;
+}
+.add:hover{
+    background-color:purple;
+}
+
+/* item and item buttons */
+.list{
+    list-style: none;
+    font-size: 25px;
+    display: grid;
+    grid-template-rows: 80px;
+    grid-auto-rows: 80px;
+    gap: 10px;
+}
+.list p{
+    word-wrap: break-word;
+    align-self: center;
+}
+.delete-btn, .edit-btn, .done-btn, .cancel-btn{
+    width: 100px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.delete-btn:hover{
+    background-color: red;
+    color:white;
+}
+.edit-btn:hover{
+    background-color:dodgerblue;
+    color:white;
+}
+.done-btn:hover{
     background-color: green;
+    color: white;
+}
+.cancel-btn:hover{
+    background-color: dodgerblue;
+    color: white
+}
+
+/* display grid for each list item for "symetrical"(correct word? idk) */
+li{
+    align-self: center;
+    display: grid;
+    grid-template-columns: 400px repeat(2, 100px);
+    grid-auto-rows: 50px;
+    gap: 10px;
+}
+.edit-input{
+    font-size: 20px;
+    padding: 10px;
 }

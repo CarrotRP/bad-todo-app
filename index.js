@@ -1,56 +1,108 @@
-//need search func
-const button = document.querySelector("#btn")
-let todo = document.querySelector("#chores")
-let delBtns = document.querySelectorAll(".delbtn");
+var input = document.querySelector(".chore")
+var addBtn = document.querySelector(".add")
 
-let lis;
-let delBtn;
-let editBtn;
-let done;
+var list = document.querySelector('.list') //where list will display
 
-document.addEventListener("DOMContentLoaded", () => {
-    button.addEventListener("click", () => {
+var count = document.querySelector('.item-count');
 
-        addToList();
+let items = ["dawg", "cat", 'burd'];
 
-        editBtn.addEventListener("click", () => {
-            done = document.createElement("button");
-            done.innerHTML = "done";
-            const editor = document.createElement("input");
-            editor.value = lis.innerHTML.slice(0, lis.innerHTML.indexOf("<"));
-            lis.innerHTML = " ";
-            lis.prepend(editor);
-            lis.appendChild(done);
+let html = '';
 
-            done.addEventListener("click", () => {
-                console.log("hello");
-                if(editor.value != ""){
-                    lis.innerHTML = editor.value;
-                    lis.appendChild(delBtn);
-                    lis.appendChild(editBtn);
-                }
-            });
-        })
-
-    })
-})
-function addToList() {
-    lis = document.createElement("li");
-    delBtn = document.createElement("button");
-    editBtn = document.createElement("button");
-    delBtn.innerHTML = "del";
-    delBtn.classList = "delbtn";
-    editBtn.innerHTML = "edit";
-    editBtn.classList = "editbtn";
-
-    if (todo.value != "") {
-        lis.innerHTML = todo.value;
-        document.querySelector(".todoList").appendChild(lis);
-        lis.appendChild(delBtn);
-        lis.appendChild(editBtn);
+//enter key listener
+input.addEventListener('keydown', (e) => {
+    if (e.key == "Enter") {
+        e.preventDefault();
+        addBtn.click();
     }
-    delBtn.addEventListener("click", () => {
-        lis.remove();
+})
+
+//add item to the list
+addBtn.addEventListener('click', () => {
+
+    if (input.value != "") {
+        items.push(input.value);
+
+        html = `
+        <li class="i${items.length - 1}">
+            <p style="display:inline;">${input.value}</p> 
+            <button class="delete-btn">Delete</button>
+            <button class="edit-btn">Edit</button>
+        </li>
+        `
+
+        list.innerHTML += html;
+        addListener(); //call to add the listener to the new one
+
+        input.value = ""; //reset input
+    }
+    console.log(items)
+})
+
+//display item from list, if there are any
+//if db were to implemented, display all items
+function displayItem() {
+    let html = '';
+    items.forEach((i, index) => {
+        html += `
+        <li class="i${index}">
+            <p style="display:inline;">${i}</p> 
+            <button class="delete-btn">Delete</button>
+            <button class="edit-btn">Edit</button>
+        </li>
+        `
     })
-    todo.value = "";
+    list.innerHTML = html;
+    addListener();
+}
+displayItem();
+
+//delete btn listener
+function addListener() {
+    //delete button
+    document.querySelectorAll('.delete-btn').forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            items = items.filter((v, i) => i != index);
+            displayItem(); //refresh the display
+        })
+    })
+    //edit button
+    document.querySelectorAll('.edit-btn').forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            //select list item
+            var list = document.querySelector(`.i${index}`);
+            console.log(list)
+            //set the inner html to display input, and 2 buttons(done, cancel)
+            list.innerHTML = `<input class="edit-input" type="text" value="${items[index]}"></input>
+                            <button class="done-btn">Done</button>
+                            <button class="cancel-btn">Cancel</button>`;
+            
+            //add done btn listener
+            document.querySelectorAll('.done-btn').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    //get input tag of the target
+                    const input = document.querySelector(`.i${index} input`);
+                    console.log(list)
+                    // input.
+                    console.log(index);
+                    items[index] = input.value; //change value
+                    //set the innerhtml back to original
+                    list.innerHTML = `<p style="display:inline;">${items[index]}</p> 
+                                    <button class="delete-btn">Delete</button>
+                                    <button class="edit-btn">Edit</button>`
+                    //call this again to readd the listener, cuz if not it doesnt work 🗿
+                    addListener();
+                })
+            })
+            //add cancel btn listener
+            document.querySelectorAll('.cancel-btn').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    list.innerHTML = `<p style="display:inline;">${items[index]}</p> 
+                                    <button class="delete-btn">Delete</button>
+                                    <button class="edit-btn">Edit</button>`;
+                    addListener();
+                })
+            })
+        })
+    })
 }
